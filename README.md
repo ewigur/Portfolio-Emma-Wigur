@@ -17,18 +17,24 @@ ________________________________________________________________________________
  dead set on chasing the dream of creating worlds for others to explore.
 ________________________________________________________________________________________________
 
-# Games
+## Games
+<div align="center">
+  <h2>
+    <a href="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/README.md">
+      <em>Anchor's Lament</em> 
+    </a>
+    ← Click for more
+  </h2>
 
+</div>
 <p align="center">
   <img src="ThumbNails/w500.jpg" />
 </p>
 
-### Details
+#### Quick Details
 Developers: [Imperial Playgrounds](https://imperialplaygrounds.com/#About)\
 Engine: Unity\
 My Role: Programmer (_Internship_)
-
-
 ________________________________________________________________________________________________
  
 ## Collaborative Projects
@@ -44,6 +50,7 @@ _Their names are listed on the Itch.io pages provided in each presentation of th
 
 <details>
   <summary>Quick Details</summary>
+ My Role:
  
  - Comprehensive Gameplay Programming
  - Sound Design/SFX
@@ -66,6 +73,7 @@ ___________________________________________
 
 <details>
   <summary>Quick Details</summary>
+ My Role:
  
 - Camera System
 - UI Implementation/Animation\
