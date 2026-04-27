@@ -19,6 +19,10 @@ ________________________________________________________________________________
 
 # Games
 
+<p align="center">
+  <img src="ThumbNails/w500.jpg" />
+</p>
+
 ### Details
 Developers: [Imperial Playgrounds](https://imperialplaygrounds.com/#About)\
 Engine: Unity\
@@ -30,7 +34,7 @@ ________________________________________________________________________________
 ## Collaborative Projects
 <details>
 <summary>Disclaimer</summary>
- 
+
 All art presented in *"Train Tale"* and *"Pogo Pirates"* are made by students at Yrgo Game Creator Artist.\
 _Their names are listed on the Itch.io pages provided in each presentation of the projects._
 
