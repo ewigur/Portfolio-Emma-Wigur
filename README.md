@@ -16,6 +16,16 @@ ________________________________________________________________________________
  that somebody has to actually be making the games I enjoy playing - and ever since I have been\
  dead set on chasing the dream of creating worlds for others to explore.
 ________________________________________________________________________________________________
+
+# Games
+
+### Details
+Developers: [Imperial Playgrounds](https://imperialplaygrounds.com/#About)\
+Engine: Unity\
+My Role: Programmer (_Internship_)
+
+
+________________________________________________________________________________________________
  
 ## Collaborative Projects
 <details>
