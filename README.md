@@ -5,6 +5,9 @@
 [CV](https://drive.google.com/file/d/1TDsZZmJ3MFa_2KRa7qVxOIB03esl3rUD/view) |
 [Itch.io](https://ewigur.itch.io/) |
 [LinkedIn](https://www.linkedin.com/in/emma-wigur-103711219/)
+
+**Skills**\
+[![My Skills](https://skillicons.dev/icons?i=cs,unity,unreal,github,visualstudio,vscode,ps=light)](https://skillicons.dev)
 ________________________________________________________________________________________________
 #### About the Author
  Welcome to my collection of projects!\
