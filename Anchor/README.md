@@ -2,7 +2,7 @@
 
 _____________________________________________________________________________________
 
-## A Selection of Contributions
+## Contributions
 
 ### 🌍 Localization Work
 
