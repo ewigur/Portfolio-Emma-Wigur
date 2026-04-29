@@ -594,7 +594,7 @@ __
 | ------------- | ------------- |
 | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Resistance.gif)  | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/item_prism.png) |
 
-<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+_____________________________________________________________
 
 👥 Developed by
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/ImperialPlaygroundsWhiteLogoFramed.png" width="300"/> </p>
