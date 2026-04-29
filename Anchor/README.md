@@ -2,6 +2,7 @@
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/Anchorslamentlogo%20(2).png" width="500"/> </p>
 
 _____________________________________________________________
+<a name="TOP"></a>
 
 <p align="center">
 Anchor's Lament is a multiplayer roguelite strategy game where team-building meets rhythm-based combat, where everything moves to the beat of an anchor.
@@ -11,8 +12,6 @@ _____________________________________________________________
 
 _I joined the project as a programmer intern midway through development, contributing to a range of systems across gameplay, UI, and content tooling.
 In each of these tasks I focused on building maintainable and designer-friendly systems rather than hardcoded solutions._
-
-<a name="TOP"></a>
 
 ## Contents
 [🌐 Localization](#-localization) · [♨️ Events](#️-events) · [⚔️ Combat Stats](#️-combat-stats) · [🧭 Tutorial](#-tutorial) · [🛡️ Resistance](#️-resistance--mechanic-and-item)
