@@ -13,9 +13,12 @@ _____________________________________________________________
 _I joined the project as a programmer intern midway through development, contributing to a range of systems across gameplay, UI, and content tooling.
 In each of these tasks I focused on building maintainable and designer-friendly systems rather than hardcoded solutions._
 
-## Contributions
+## Contents
+[🌐 Localization](#-localization) · [♨️ Events](#️-events) · [⚔️ Combat Stats](#️-combat-stats) · [🧭 Tutorial](#-tutorial) · [🛡️ Resistance](#️-resistance--mechanic-and-item)
 
-### 🌐 Localization Work
+## What I Worked On
+
+### 🌐 Localization
 
 One of the larger systems I worked on in this project was **localization**.
 
@@ -133,7 +136,7 @@ An existing event that required a UI overhaul and expanded gameplay.
 <details> <summary><strong>Food Consumable + adding bonus item</strong></summary> <br>
   
 _The function that increases player health,\
-  in addition to adding the bonusitem to player's inventory._
+  in addition to adding the bonus item to player's inventory._
   ```csharp
     public override void Eat()
     {
@@ -536,7 +539,20 @@ public void HandleEvent(EEvent evt)
 }
 ```
   </details>
-<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Tutorial.gif" width="500"/> </p>
+
+Below is a demonstration of how the tutorial highlights work together with the parrot's dialogue.\
+The highlights are built using two layered materials - one inverted to create a masking effect.\
+
+I originally planned to implement this with a custom shader, but with limited time I found a creative alternative:\
+sprites define the shapes, while string IDs bind each highlight to its UI element rather than hardcoded references.
+
+| Linked Cracky Dialogue | Tutorial Highlight Pick Fish |
+| ------------- | ------------- |
+| <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Cracky_Pick.gif" width="250"/>  | <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Tutorial_Pick.gif" width="250"/> |
+
+| Linked Cracky Dialogue | Tutorial Highlight Adjacency |
+| ------------- | ------------- |
+| <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Cracky_Adj.gif" width="250"/>  |  <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Tutorial_Ajd.gif" width="250"/> |
 
 <p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
 
@@ -624,6 +640,8 @@ _The same logic applies for enchants, which are grid slots with an added mechani
   | Mechanic in Combat | Resistance Item : _Prism_|
 | ------------- | ------------- |
 | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Resistance.gif)  | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/item_prism.png) |
+
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
 
 _____________________________________________________________
 
