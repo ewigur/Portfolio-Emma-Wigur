@@ -7,6 +7,9 @@ Anchor's Lament is a multiplayer roguelite strategy game where team-building mee
 
 ---
 ## Contributions
+
+_In each of these tasks I focused on building maintainable and designer-friendly systems rather than hardcoded solutions._
+
 ### 🌐 Localization Work
 
 One of the larger systems I worked on in this project was **localization**.
@@ -99,7 +102,9 @@ return result;
 
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/LocShow.gif" width="500"/> </p>
 
----
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
+_____________________________________________________________
 
 ### ♨️ Events
 
@@ -238,6 +243,8 @@ void InitializeShop(EFishTag tag)
   </details>
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/TagShop.gif" width="400"/> </p>
 
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
 _____________________________________________________________
 
 ### ⚔️ Combat Stats
@@ -257,11 +264,13 @@ My contributions:
   <strong><em>See examples below</em></strong>
 </p>
 
-<details> <summary><strong>Realtime event recordning</strong></summary> <br>
+<details> <summary><strong>Realtime event recordning</strong></summary>
   
 ***The system is built around a clear separation between transient combat data and persistent run data,\
 allowing stats to reset each round while still contributing to long-term analysis.***
-  
+
+<hr width="30%" align="left">
+
 _Separate dictionaries for player and enemy teams_
 ```csharp
 private static Dictionary<FishInstance, FishStats> localRoundStats =
@@ -356,8 +365,177 @@ public void ReportStats()
   | First Iteration (Programmer UI) | Final Stat Display _(Visuals by UX designer)_ |
 | ------------- | ------------- |
 | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/OldStat.gif)  | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/StatDisplay.gif) |
+
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
+_____________________________________________________________
+
+### 🧭 Tutorial
+
+The game already included a basic tutorial system, where the parrot “Cracky” would occasionally appear to provide tips and guidance.\
+However, the team wanted a more structured and comprehensive onboarding experience—especially for first-time players.
+
+I was tasked with designing and implementing this improved tutorial. This involved reworking the existing “Cracky” system,\
+as well as building supporting systems to track player progression and dynamically guide the player through key gameplay elements.
+
+My contributions:
+
+- Expanded the existing tutorial system to adapt based on player state (first-time vs. returning players)
+- Designed and implemented a dynamic UI that highlights relevant gameplay elements in sync with tutorial instructions
+- Developed a data-driven setup using Scriptable Objects to define tutorial steps and content
+
+  <p align="center">
+  <strong><em>See examples below</em></strong>
+</p>
+
+<details> <summary><strong>Tutorial System Implementation</strong></summary> <br>
+
+_These snippets highlight the core architecture behind the tutorial system,\
+including data-driven design, event handling, and dynamic UI highlighting._
+
+<hr width="30%" align="left">
+
+_Defines tutorial content as data rather than hardcoded logic.\
+ This allows designers to configure tutorial flows directly in the editor\
+ and makes the system scalable and easy to extend._
+```csharp
+[CreateAssetMenu(menuName = "Tutorials/Tutorial Content")]
+public class TutorialContent : ScriptableObject
+{
+    public EEvent Event;
+    public TutorialStep[] steps;
+    public StringKey returningPlayerDialogue;
+
+    public bool useGreeting = false;
+
+    [HideInInspector] public bool autoSpawnCracky;
+    [HideInInspector] public bool prepPhase = false;
+}
+```
+_Converts a list of tutorial content into a dictionary for fast runtime lookup.\
+This avoids expensive searches and ensures O(1) access when reacting to gameplay events._
+```csharp
+private void Awake()
+{
+    lookUp = tutorials.ToDictionary(tutorial => tutorial.Event);
+}
+
+public TutorialContent Get(EEvent evt) =>
+    lookUp.TryGetValue(evt, out var tutorial) ? tutorial : null;
+```
+_Registers UI elements using string IDs instead of direct references.\
+This decouples the tutorial system from specific UI objects,\
+making it reusable across scenes and layouts._
+```csharp
+private void Awake()
+{
+    HighlightRegistry.Register(highlightID, GetComponent<RectTransform>(), isSquare);
+}
+
+private void OnDestroy()
+{
+    HighlightRegistry.Unregister(highlightID);
+}
+```
+_Dynamically resolves and highlights UI elements based on IDs.\
+This allows tutorial steps to target UI without hard references,\
+and supports multiple highlights per step._
+```csharp
+public void HighlightByIDs(string[] ids)
+{
+    ClearHoles();
+
+    if (ids == null || ids.Length == 0)
+        return;
+
+    foreach (var id in ids)
+    {
+        RectTransform target = HighlightRegistry.Get(id);
+        bool isSquare = HighlightRegistry.IsSquare(id);
+
+        if (target != null)
+        {
+            CreateHole(target, isSquare);
+        }
+        else
+        {
+            Debug.LogWarning($"No highlight target found for ID: {id}");
+        }
+    }
+}
+```
+_Matches highlight masks to UI elements by converting world-space corners\
+into canvas-local positions. Handles different resolutions and layouts._
+```csharp
+private void MatchToTarget(RectTransform hole, RectTransform target)
+{
+    Vector3[] worldCorners = new Vector3[4];
+    target.GetWorldCorners(worldCorners);
+
+    Vector2 min = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, worldCorners[0]);
+    Vector2 max = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, worldCorners[2]);
+
+    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        maskContainer,
+        min,
+        canvas.worldCamera,
+        out var localMin
+    );
+
+    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        maskContainer,
+        max,
+        canvas.worldCamera,
+        out var localMax
+    );
+
+    Vector2 size = localMax - localMin;
+    Vector2 center = (localMax + localMin) / 2f;
+
+    hole.anchoredPosition = center;
+    hole.sizeDelta = new Vector2(Mathf.Abs(size.x), Mathf.Abs(size.y));
+}
+```
+_Entry point for tutorial logic triggered by gameplay events.\
+Adapts behavior depending on whether the player is new or returning._
+```csharp
+public void HandleEvent(EEvent evt)
+{
+    var content = database.Get(evt);
+    if (content == null)
+        return;
+
+    activeContent = content;
+    currentSteps = content.steps;
+    currentStepIndex = 0;
+
+    if (!useTutorial)
+    {
+        TryShowReturningGreetingOnce(evt, content);
+
+        if (content.autoSpawnCracky)
+        {
+            parrotGuide.ShowDialogue(
+                StringLookup.GetStrings(content.returningPlayerDialogue),
+                true
+            );
+        }
+    }
+    else
+    {
+        spawnButton.interactable = false;
+
+        if (currentSteps != null && currentSteps.Length > 0)
+            ShowCurrentStep();
+    }
+}
+```
+  </details>
+<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Tutorial.gif" width="500"/> </p>
+
 _____________________________________________________________
 
 👥 Developed by
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/ImperialPlaygroundsWhiteLogoFramed.png" width="300"/> </p>
+
 <p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
