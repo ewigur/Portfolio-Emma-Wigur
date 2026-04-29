@@ -116,6 +116,28 @@ My contributions:
 - Designed the bonus item to buff unit stats based on actions
 - Collaborated with the lead artist to update visual assets
 - Integrated new functionality into an existing system
+
+<details> <summary><strong>Food Consumable + adding bonus item</strong></summary> <br>
+  
+_The function that increases player health,\
+  in addition to adding the bonusitem to player's inventory._
+  ```csharp
+    public override void Eat()
+    {
+        for (int i = 0; i < itemsToAdd; i++)
+        {
+            bonusItem.AddToInventory(bonusItem);
+        }
+
+        GameplayManager.Instance.GetTeam().MaxHealth += HealthToGain;
+        GameplayManager.Instance.statBars.MaxHealth = GameplayManager.Instance.GetTeam().MaxHealth;
+        GameplayManager.Instance.statBars.CurrentHealth = GameplayManager.Instance.GetTeam().MaxHealth;
+
+        AudioManagement.Instance?.PlayEffectSound("EAT");
+        GameplayManager.Instance.statBars.UpdateBars();
+    }
+  ```
+  </details>
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Shells.gif" width="500"/> </p>
 
 🏷️ Tag Shop
@@ -130,7 +152,7 @@ My contributions:
 - Implemented randomized tag selection via UI
 - Connected spawning logic to tag-based filtering
 - Built layered UI to support the event flow
-<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/TagShop.gif" width="500"/> </p>
+<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/TagShop.gif" width="400"/> </p>
 
 _____________________________________________________________
 
