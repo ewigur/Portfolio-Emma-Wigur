@@ -98,7 +98,7 @@ return result;
 ```
 </details>
 
-<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/LocShow.gif" width="600"/> </p>
+<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/LocShow.gif" width="500"/> </p>
 
 ---
 
