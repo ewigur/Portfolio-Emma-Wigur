@@ -535,6 +535,8 @@ public void HandleEvent(EEvent evt)
   </details>
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Tutorial.gif" width="500"/> </p>
 
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
 _____________________________________________________________
 
 ### 🛡️ Resistance : Mechanic and item
