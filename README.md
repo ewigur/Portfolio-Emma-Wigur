@@ -1,13 +1,15 @@
 <a name="TOP"></a>
-
 # Portfolio | Emma Wigur
 **Links**\
-[CV](https://drive.google.com/file/d/1TDsZZmJ3MFa_2KRa7qVxOIB03esl3rUD/view) |
+| [CV](https://drive.google.com/file/d/1TDsZZmJ3MFa_2KRa7qVxOIB03esl3rUD/view) | 
 [Itch.io](https://ewigur.itch.io/) |
-[LinkedIn](https://www.linkedin.com/in/emma-wigur-103711219/)
+[LinkedIn](https://www.linkedin.com/in/emma-wigur-103711219/) |
 
 **Skills**\
 [![My Skills](https://skillicons.dev/icons?i=cs,unity,unreal,github,visualstudio,vscode,ps=light)](https://skillicons.dev)
+
+**Contents**\
+[🎮 Games](#games) · [🧩 Student Projects](#higher-vocational-education-yh-projects) · [👾 Solo Projects](#solo-projects)
 ________________________________________________________________________________________________
 #### About the Author
  Welcome to my collection of projects!\
@@ -17,36 +19,35 @@ ________________________________________________________________________________
  dead set on chasing the dream of creating worlds for others to explore.
 ________________________________________________________________________________________________
 
-## Games
-<div align="center">
-  <h2>
-    <a href="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/README.md">
-      <em>Anchor's Lament</em> 
-    </a>
-    ← Click for more
-  </h2>
+## 🎮 Games
 
-</div>
-<p align="center">
-  <img src="ThumbNails/w500.jpg" />
-</p>
+### 🔗 [***Anchor's Lament***](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/README.md)
 
-#### Quick Details
-Developers: [Imperial Playgrounds](https://imperialplaygrounds.com/#About)\
-Engine: Unity\
-My Role: Programmer (_Internship_)
-________________________________________________________________________________________________
- 
-## Collaborative Projects
-<details>
-<summary>Disclaimer</summary>
-
-All art presented in *"Train Tale"* and *"Pogo Pirates"* are made by students at Yrgo Game Creator Artist.\
-_Their names are listed on the Itch.io pages provided in each presentation of the projects._
-
+<details> 
+  <summary>Quick Details</summary>
+<br>
+<b>My Role:</b><br>
+- Programmer (<i>Internship, December 2025 - April 2026</i>)
+<br>&nbsp;________________________<br>
+<i>Released: April 23, 2026</i><br><br>
+<b>Engine:</b> Unity<br>
+<b>Genre:</b> Action, Casual, Indie, Massively Multiplayer, Strategy<br>
+<b>Developers:</b> <a href="https://imperialplaygrounds.com/#About">Imperial Playgrounds</a>
 </details>
 
-### [***Train Tale***](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/README.md) ← Click for more
+<img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/w500.jpg" width="315"/>
+_______________________________________________
+
+## 🧩 Student Projects
+
+<details>
+<summary>Disclaimer</summary>
+All art presented in <i>"Train Tale"</i> and <i>"Pogo Pirates"</i> are made by students at Yrgo Game Creator Artist.
+<br>
+<i>Their names are listed on the Itch.io pages provided in each presentation of the projects.</i>
+</details>
+
+### 🔗 [***Train Tale***](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/README.md)
 
 <details>
   <summary>Quick Details</summary>
@@ -65,11 +66,10 @@ Genre: Walking Simulator, Story, Suspense
 
 </details>
 
-\
 <img width="315" height="250" alt="image" src="https://github.com/user-attachments/assets/6da9ffc9-b982-4ffa-be03-1cc46e4982a5" />
-___________________________________________
+_______________________________________________
 
-### [***Pogo Pirates***](https://github.com/ewigur/Portfolio/blob/main/Pogo%20Pirates/README.md) ← Click for more
+### 🔗 [***Pogo Pirates***](https://github.com/ewigur/Portfolio/blob/main/Pogo%20Pirates/README.md)
 
 <details>
   <summary>Quick Details</summary>
@@ -86,14 +86,12 @@ Genre: Platformer, Action, Local Co-op
 
 </details>
 
-\
 <img width="315" height="250" alt="image" src="https://github.com/user-attachments/assets/57fd2998-7ce7-4496-b774-4940a2e5e7a1" />
+_______________________________________________
 
-___________________________________________________________________
+## 👾 Solo Projects
 
-## Solo Projects
-
-### [***Pond Hopper***](https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/README.md) ← Click for more
+### 🔗 [***Pond Hopper***](https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/README.md)
 
 <details>
   <summary>Quick Details</summary>
@@ -108,8 +106,8 @@ Engine: Unity
 
 </details>
 
-\
 <img width="315" height="250" alt="image" src="https://github.com/ewigur/Portfolio/blob/main/ThumbNails/PH.png" />
 
+_______________________________________________
+
 [RETURN TO TOP](#TOP)
-             <a name="TOP"></a>  
