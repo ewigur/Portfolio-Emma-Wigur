@@ -537,6 +537,63 @@ public void HandleEvent(EEvent evt)
 
 _____________________________________________________________
 
+### 🛡️ Resistance : Mechanic and item
+
+Some_Txt
+
+My contributions:
+
+- Expl
+- Expl
+- Expl
+- Expl
+
+  <p align="center">
+  <strong><em>See examples below</em></strong>
+</p>
+
+<details> <summary><strong>Resistance Mechanic</strong></summary>
+  
+***Expl***
+
+<hr width="30%" align="left">
+
+__
+```csharp
+
+```
+__
+```csharp
+
+```
+__
+```csharp
+
+```
+__
+```csharp
+
+```
+__
+```csharp
+
+```
+__
+```csharp
+
+```
+__
+```csharp
+
+```
+  </details>
+
+  | Mechanic in Combat | Resistance Item : _Prism_|
+| ------------- | ------------- |
+| ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Resistance.gif)  | ![](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/item_prism.png) |
+
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
 👥 Developed by
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/ImperialPlaygroundsWhiteLogoFramed.png" width="300"/> </p>
 
