@@ -2,15 +2,18 @@
 
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/Anchorslamentlogo%20(2).png" width="500"/> </p>
 
----
+_____________________________________________________________
+
 <p align="center">
 Anchor's Lament is a multiplayer roguelite strategy game where team-building meets rhythm-based combat, where everything moves to the beat of an anchor.
 </p>
 
----
-## Contributions
+_____________________________________________________________
 
-_In each of these tasks I focused on building maintainable and designer-friendly systems rather than hardcoded solutions._
+_I joined the project as a programmer intern midway through development, contributing to a range of systems across gameplay, UI, and content tooling.
+In each of these tasks I focused on building maintainable and designer-friendly systems rather than hardcoded solutions._
+
+## Contributions
 
 ### 🌐 Localization Work
 
@@ -116,7 +119,7 @@ In between combat, a series of themed events appear. I worked on two of them - o
 
 An existing event that required a UI overhaul and expanded gameplay.
 
-My contributions:
+**My contributions:**
 
 - Created a consumable that restores HP and grants a bonus item
 - Designed the bonus item to buff unit stats based on actions
@@ -156,7 +159,7 @@ A new event I developed as an extension of the core shop system.
 
 Players can filter units by tags, allowing more strategic team building.
 
-My contributions:
+**My contributions:**
 
 - Designed a new event flow with multiple shop paths
 - Implemented randomized tag selection via UI
@@ -214,7 +217,7 @@ void RandomizeTags()
     }  
 }
 ```
-_The chosen tags is now used as active tags, and the shop will initialize accordningly_
+_The chosen tags is now used as active tags, and the shop will initialize accordingly_
 ```csharp
 void InitializeShop(EFishTag tag)
 {
@@ -255,7 +258,7 @@ I developed a system that tracks and aggregates damage output across combat enco
 
 This allows players to analyze performance, identify their strongest units, and better understand the impact of different strategies over time.
 
-My contributions:
+**My contributions:**
 
 - Built a system that gathers all active units at combat start
 - Implemented real-time tracking of per-unit combat contributions
@@ -266,7 +269,7 @@ My contributions:
   <strong><em>See examples below</em></strong>
 </p>
 
-<details> <summary><strong>Realtime event recordning</strong></summary>
+<details> <summary><strong>Realtime event recording</strong></summary>
   
 ***The system is built around a clear separation between transient combat data and persistent run data,\
 allowing stats to reset each round while still contributing to long-term analysis.***
@@ -380,7 +383,7 @@ However, the team wanted a more structured and comprehensive onboarding experien
 I was tasked with designing and implementing this improved tutorial. This involved reworking the existing “Cracky” system,\
 as well as building supporting systems to track player progression and dynamically guide the player through key gameplay elements.
 
-My contributions:
+**My contributions:**
 
 - Expanded the existing tutorial system to adapt based on player state (first-time vs. returning players)
 - Designed and implemented a dynamic UI that highlights relevant gameplay elements in sync with tutorial instructions
@@ -541,54 +544,82 @@ _____________________________________________________________
 
 ### 🛡️ Resistance : Mechanic and item
 
-Some_Txt
+Some units in the game needed a way to temporarily withstand certain damage types - specifically poison and ink.
+I designed and implemented Resistance as a stackable defensive mechanic,\
+as well as an equippable Item that grants any unit the ability to resist.
+Each stack of Resistance shields the unit from poison and ink damage,\
+consuming one stack when hit by the damage types mentioned until they are exhausted.
 
-My contributions:
+**My contributions:**
 
-- Expl
-- Expl
-- Expl
-- Expl
+- Created the Resistance mechanic as a stackable, defensive action that can be used by the designer when creating units
+- Implemented an Item that grants any unit the Resistance ability, extending the mechanic's reach
+- Built the stack consumption logic to correctly deflect and nullify poison and ink damage until depleted
 
   <p align="center">
   <strong><em>See examples below</em></strong>
 </p>
 
 <details> <summary><strong>Resistance Mechanic</strong></summary>
-  
-***Expl***
 
 <hr width="30%" align="left">
 
-__
+_Resistance stacks are assigned at initialization based on the unit's tier_
 ```csharp
-
+public override void Initialize(TeamInstance team, FishInstance fish)
+{
+    base.Initialize(team, fish);
+    int resstacks = Stacks[(int)fish.Tier];
+    fish.ResistanceStacks += resstacks;
+}
 ```
-__
+_Stack count is dynamically resolved, supporting item/enchant overrides for UI display_
 ```csharp
+private string GetResistanceOfFish(Fish fish, List<ActionInstance.FieldOverride> fieldOverrides)
+{
+    List<ActionInstance.FieldOverride> overrides = fieldOverrides ?? GetFieldOverrides(fish, this);
 
+    if (overrides != null)
+    {
+        foreach (var ovr in overrides)
+        {
+            if (ovr.FieldName == "Stacks")
+            {
+                TieredInt ar = (TieredInt)ovr.GetValue();
+                return ar[(int)fish.Tier].ToString();
+            }
+        }
+    }
+
+    return Stacks[(int)fish.Tier].ToString();
+}
 ```
-__
+_The same logic applies for enchants, which are grid slots with an added mechanic that can grant or buff Resistance (or other actions)_
 ```csharp
+    private string GetResistanceForEnchant(EnchantType enchant, ERarity rarity, List<ActionInstance.FieldOverride> fieldOverrides)
+    {
+        List<ActionInstance.FieldOverride> overrides = fieldOverrides ?? GetFieldOverrides(enchant, this);
 
-```
-__
-```csharp
+        if (overrides != null)
+        {
+            foreach (var ovr in overrides)
+            {
+                if (ovr.FieldName == "Stacks")
+                {
+                    TieredInt ar = (TieredInt)ovr.GetValue();
+                    return ar[(int)rarity].ToString();
+                }
+            }
+        }
 
-```
-__
-```csharp
-
-```
-__
-```csharp
-
-```
-__
-```csharp
-
+        return Stacks[(int)rarity].ToString();
+    }
 ```
   </details>
+
+  The item, called _Prism_ is a scriptable object designed as equipment a player can add to their units.\
+  The item has the action script assigned as its behaviour (in Prism's case Resistance).\
+  When the item is put on a unit, the unit gains that action.
 
   | Mechanic in Combat | Resistance Item : _Prism_|
 | ------------- | ------------- |
@@ -598,5 +629,9 @@ _____________________________________________________________
 
 👥 Developed by
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/ImperialPlaygroundsWhiteLogoFramed.png" width="300"/> </p>
+
+<p align="center">
+  <a href="https://store.steampowered.com/app/3831400/Anchors_Lament/"><img src="https://img.shields.io/badge/Steam-000000?style=for-the-badge&logo=steam&logoColor=white"/></a>&nbsp;<a href="https://discord.com/invite/MGA8tnSdMy"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"/></a>
+</p>
 
 <p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
