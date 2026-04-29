@@ -2,8 +2,7 @@
 
 ---
 <p align="center">
-Anchor's Lament is a multiplayer roguelite strategy game where team-building meets rhythm-based combat,\
-where everything moves to the beat of an anchor.
+Anchor's Lament is a multiplayer roguelite strategy game where team-building meets rhythm-based combat, where everything moves to the beat of an anchor.
 </p>
 
 ---
