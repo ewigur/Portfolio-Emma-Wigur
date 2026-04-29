@@ -1,5 +1,7 @@
 <a name="TOP"></a>
 
+<p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/Anchorslamentlogo%20(2).png" width="500"/> </p>
+
 ---
 <p align="center">
 Anchor's Lament is a multiplayer roguelite strategy game where team-building meets rhythm-based combat, where everything moves to the beat of an anchor.
