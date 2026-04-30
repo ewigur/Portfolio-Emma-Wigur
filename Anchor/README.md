@@ -1,4 +1,4 @@
-### 🔗 [***Back to Overview***](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
+🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
 
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/Anchorslamentlogo%20(2).png" width="500"/> </p>
 
@@ -119,7 +119,7 @@ _____________________________________________________________
 
 In between combat, a series of themed events appear. I worked on two of them - one of which I developed from scratch.
 
-🍲 Shell's Kitchen
+### 🍲 Shell's Kitchen
 
 An existing event that required a UI overhaul and expanded gameplay.
 
@@ -157,7 +157,7 @@ _The function that increases player health,\
   </details>
 <p align="center"> <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/Anchor/GIFs/Shells.gif" width="500"/> </p>
 
-🏷️ Tag Shop
+### 🏷️ Tag Shop
 
 A new event I developed as an extension of the core shop system.
 
@@ -655,4 +655,4 @@ _____________________________________________________________
 
 <p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
 
-### 🔗 [***Back to Overview***](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
+🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
