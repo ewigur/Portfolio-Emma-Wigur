@@ -1,38 +1,45 @@
 <a name="TOP"></a>
 
+🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
+
+<p align="center">
+  <strong>Links</strong><br>
+ | <a href="https://ewigur.itch.io/pond-hoppe">Play Pond Hopper</a> |
+
 <p align="center">
   <img src=https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH.gif />
 </p>
 
+<p align="center">
+  <strong>Contents</strong><br>
+  <a href="#-jumping">🐸 Jumping</a> |
+  <a href="#-pickups">💎 Pickups</a> |
+  <a href="#-object-pooling">♻️ Object Pooling</a> |
+  <a href="#-highscore-and-leaderboard">🏅 Highscore and Leaderboard</a> |
+  <a href="#-graphics">🖌️ Graphics</a>
+</p>
 
-# Brief summary
-*Pond Hopper* was created for an assignment at *Yrgo Game Creator Programmer*.
- \
- \
-The purpose was to build a game for android, and to use a selection of programming patterns such as a **state machine**, **object pooling** and **scriptable objects**.
- \
- \
-The result was this little gem, and being the first game I finished on my own it definitely has a place on the show off -list.
+<p align="center">____________________________________________________________</p>
+<p align="center"><b>Game Summary</b></p>
 
-## 
-[Itch Page](https://ewigur.itch.io/pond-hopper)
-## 
+<i><p align="center">Pond Hopper is a 2D mobile game built for Android, developed solo as a school project at Yrgo Game Creator Programmer in early 2025. The player controls a frog that jumps between platforms by dragging and releasing on the screen, catching flies to score points while avoiding falling into the water. It's available to play in browser on itch.io.</p></i>
 
- 2D game for mobile\
-*January 2025 - February 2025*
-_____________________________________________________________________________________
+<p align="center">___________________________________________________________________________________________________________________________________</p>
+
+Developed with a focus on core programming patterns — state machine, object pooling, and scriptable objects. It was my first solo-completed game, and it's one I'm genuinely proud of.
+The game features a double jump mechanic for balance, two types of collectible flies (a common fly and a rarer, high-value firefly), and a local leaderboard that saves the top scores on the device.
+
 
 ## Mechanics
 
-![](https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_GamePlay.gif)
-
-**1.1 Jump**\
+### 🐸 Jumping
 The core mechanic of this game is pretty straight forward - touch, drag and release to make the frog jump and devour the flies.
 The indicator shows direction of the jump, which gives the player control over how far the frog will go.
 The double jump was the best way to balance the mechanic, since this little critter can't swim a miscalculated jump == drowning.
- \
- \
- **1.2 Pickups**\
+
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
+
+### 💎 Pickups
 Each collected fly adds to the score. The base of the fly is built on a scriptable object, which was the best approach for managing the attributes.\
 I decided on having one common fly, and one firefly that would be more rare but with a higher score on collection. I quickly noticed that the firefly
 caught the eye of the people testing the game,and it became more interesting gameplay as the subjects were more likely to chase the shiny fly instead of
@@ -126,39 +133,32 @@ ________________________
 ```
 
 </details>
-_____________________________________________________________________________________
 
-![](https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_ObjectPool.gif)
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_GamePlay.gif" width="600"/>
+</p>
 
-**2. Object Pool**
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
-Since were already on the topic of the flies - they also have their very own object pool. Since the gameloop goes on and on, 
-it would be irresposible of me not to implement a _circle of life_ kind of functionality. The flies spawn from a pool of preloaded
-prefabs, and when the player collects them they return to the pool to be released again. 
+### ♻️ Object Pooling
+
+Since were already on the topic of the flies - they also have their very own object pool. Since the gameloop goes on and on,\
+it would be irresposible of me not to implement a _circle of life_ kind of functionality. The flies spawn from a pool of preloaded\
+prefabs, and when the player collects them they return to the pool to be released again.
+
+- I used Unity's built in OP, and it takes information from the behavioural script created for the flies,\
+which in turn is based off of the scriptable object that contains all the data.
+
+- The pool takes the "spawnProbability" (from the scriptable object) into account,\
+and releases a set amount of flies based on weight and amount of flies already excisting in the scene.
 
 <details>
-<summary>PickUpPool.cs - Object Pool</summary>
+<summary>Object Pooling</summary>
 <br>
   
-```ruby
+_Picks a fly type by running a weighted lottery across all items' spawn probabilities - the higher the probability, the more likely it is to win._
 
-/*
-  NOTE: A snippet from the object pool.
-        I used Unity's built in OP, and it takes information from the behavioural script created for the flies,
-        which in turn is based off of the scriptable object that contains all the data.
-*/
-
-
-/*
-  NOTE: The pool takes the "spawnProbability" (from the scriptable object) into account,
-        and releases a set amount of flies based on weight and amount of flies already excisting in the scene.
-*/
-________________________
-
-/*
-  Snippet 1  - Getting item data
-*/
-
+```csharp
     private PickUpItem GetRandomPickUpItem()
     {
         float totalWeight = pickUpItems.Sum(item => item.spawnProbability);
@@ -174,11 +174,12 @@ ________________________
 
         return pickUpItems[0];
     }
-________________________
-/*
-  Snippet 2  - Spawn Method
-*/
+```
 
+_Pulls a pickup from the pool and places it in the scene,\
+skips spawning entirely if the active pickup limit has already been reached._
+
+```csharp
     private void Spawn()
     {
         if (currentActivePickUps >= maxActivePickUps) 
@@ -196,11 +197,11 @@ ________________________
             pickUp.OnReturn += DisablePrefab;
         }
     }
-________________________
-/*
-  Snippet 3  - Return item to pool
-*/
+```
 
+_Returns a collected pickup to its pool for reuse, and unsubscribes from its return event to keep things clean._
+
+```csharp
     private void DisablePrefab(PickUpBehaviour pickUp)
     {
         if (pickUpPools.TryGetValue(pickUp.GetItemData(), out var pool))
@@ -216,18 +217,24 @@ ________________________
 
 </details>
 
-_____________________________________________________________________________________
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_ObjectPool.gif" width="600"/>
+</p>
 
-![](https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_HS.gif)
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
-**3. Highscore & Leaderboard**
+### 🏅 Highscore and Leaderboard
 
 Another system I wanted to implement was a leaderboard. I decided to only make it local, since this game was more about making it for myself and a fun thing to show friends and family (and, of course, you). 
 If the player reaches a score higher than the last 8, they will be prompted to add their name in the textbox upon the frogs final death. The highscore is saved on the local device, and the leaderboard will be updated and available in the main menu of the game.
 
-_____________________________________________________________________________________
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_HS.gif" width="600"/>
+</p>
 
-## Graphics
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
+
+### 🖌️ Graphics
 
 All graphics are created by me.\
 The only exception is the level background,\
@@ -245,15 +252,19 @@ which is an AI-generated image (Adobe Firefly) that I repainted and cut into thr
 | ------------- |
 | ![](https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/Graphics/PH_Log_Stone.png) |
 
-_____________________________________________________________________________________
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+<p align="center">_____________________________________________________________________________________</p>
 
-### *Developed by*
-Emma Wigur
-_____________________________________________________________________________________
-### *Made Possible by*
-![Image](https://github.com/ewigur/Portfolio/blob/main/ThumbNails/Yrgo.png)
-*Higher Vocational Education - Game Creator Programmer, Göteborg*
-_____________________________________________________________________________________
+<p align="center"><b><i>Made possible by</i></b></p>
 
-[RETURN TO TOP](#TOP)
-             <a name="TOP"></a>  
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/ThumbNails/Yrgo.png"/>
+</p>
+
+<p align="center"><i>Higher Vocational Education - Game Creator Programmer, Göteborg</i></p>
+
+<p align="center">_____________________________________________________________________________________</p>
+
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
+🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
