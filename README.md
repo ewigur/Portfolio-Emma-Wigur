@@ -110,4 +110,4 @@ Engine: Unity
 
 _______________________________________________
 
-[RETURN TO TOP](#TOP)
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
