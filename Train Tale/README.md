@@ -1,5 +1,6 @@
 🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
 
+<a name="TOP"></a>
 <p align="center">
   <strong>Links</strong><br>
  | <a href="https://yrgo-game-creator.itch.io/train-tale">Download Train Tale</a> |
@@ -7,7 +8,6 @@
 </p>
 
 <p align="center"> <img src="https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Sample_01.gif" width="600"/> </p>
-<a name="TOP"></a>
 
 <p align="center">
   <strong>Contents</strong><br>
