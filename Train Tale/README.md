@@ -1,46 +1,57 @@
+🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
+
+<p align="center">
+  <strong>Links</strong><br>
+ | <a href="https://yrgo-game-creator.itch.io/train-tale">Download Train Tale</a> |
+  <a href="https://www.youtube.com/watch?v=okvqh6uOwDE">Trailer</a> |
+</p>
+
+<p align="center"> <img src="https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Sample_01.gif" width="600"/> </p>
 <a name="TOP"></a>
 
-![](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Sample_01.gif)
-
+<p align="center">
+  <strong>Contents</strong><br>
+  <a href="#️-following-eyes">👁️ Following Eyes</a> |
+  <a href="#-nail-jump-sequence">🏃 Nail Jump Sequence</a> |
+  <a href="#-player-movement">🎮 Player Movement</a> |
+  <a href="#-sound-design">🔉 Sound Design</a>
+</p>
 
 # Brief Game Summary and Vision
 Train Tale is a cozy, yet suspenseful 3D sidescroller where you play as a little gnomelike creature who lives among traveling human passengers on a train.\
  \
 Our vision while building this game was to create characters that are easy to adore, as well as make an impactful impression on the player as the story unfolds.
 
-## 
-[Itch Page](https://yrgo-game-creator.itch.io/train-tale)\
-[Trailer](https://www.youtube.com/watch?v=okvqh6uOwDE)
-## 
+*I had the pleasure to work with a wonderful team of fellow students in creating this stunning piece of work.\
+It was challenging, but most of all it was fun.*
 
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
-
-*I had the pleasure to work with a wonderful team of fellow students in creating this stunning piece of game.\
-It was challenging, but most of all it was fun - and I really hit the jackpot when I signed up to work with **Carneval**, a team of aspiring game devs!*
-
- \
-*8 week 3D Project - at Yrgo Game Creator*\
-*Developed in Spring/Summer of 2025*
-_____________________________________________________________________________________
-*Working on this project, one of my personal goals was to get more comfortable with taking a step back and make sure I could read and understand my own code. One of my teachers gave me a valuable tip that I will take with me wherever I go - bring out the old trusty pen and paper and write down the steps I needed to take to get where I wanted. Looking back I can tap myself on the shoulder and say that I reached that goal, and I learned so much more in the process.*
+*Working on this project, one of my personal goals was to get more comfortable with taking a step back and make sure I could read and understand my own code.\
+One of my teachers gave me a valuable tip that I will take with me wherever I go - grab a pen and paper and map out the steps.\
+Looking back I can pat myself on the back and say that I reached that goal.*
 
 ## A Selection of Contributions
 
-**1. Following Eyes**\
-The first sinister encounter in the game are a pair of eyes following the player's movement. I coded the eyes to track the player based on their position/distance. Since the player has restricted movement on the trolley, it slows down to really capture the eerie stare of the stalking eyes.
+### 👁️ Following Eyes
+The first sinister encounter in the game are a pair of eyes following the player's movement. I coded the eyes to track the player based on their position and distance.\
+Since the player has restricted movement on the trolley, it slows down to really capture the eerie stare of the stalking eyes.
 
-![](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Following_Eyes_01.gif)
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Following_Eyes_01.gif"/>
+</p>
 
 </details>
 
 <details>
 <summary>FollowingEyes.cs</summary>
 <br>
-  
-```ruby
+
+_Stores references to each eyeball object, the player, and the tracking boundaries.\
+Saves the eyes' starting rotation to return to when the player is out of range._
+```csharp
 public class FollowingEyes : MonoBehaviour
 {
-
     public GameObject[] eyeBalls;
 
     [SerializeField]
@@ -56,7 +67,9 @@ public class FollowingEyes : MonoBehaviour
     {
         startRotation = transform.rotation;
     }
-
+```
+_Every frame, checks if the player is hiding. If not, the eyes will track them._
+```csharp
     void Update()
     {
         if (!FindAnyObjectByType<CheckForObstacle>().IsPlayerHiding())
@@ -64,7 +77,11 @@ public class FollowingEyes : MonoBehaviour
             CalculateRotation();
         }
     }
-
+```
+_Loops through each eyeball and calculates how far the player is.\
+If the player is within range, the eye smoothly rotates to look at them.\
+If out of range, it slowly drifts back to its original position._
+```csharp
     private void CalculateRotation()
     {
         foreach (GameObject eyeball in eyeBalls)
@@ -88,7 +105,10 @@ public class FollowingEyes : MonoBehaviour
             }
         }
     }
-
+```
+_Smoothly resets the first eyeball back to its starting rotation.\
+Called externally when the eyes should stop tracking._
+```csharp
     public void GetStartRotation()
     {
         eyeBalls[0].transform.rotation = Quaternion.Slerp(transform.rotation,
@@ -97,16 +117,30 @@ public class FollowingEyes : MonoBehaviour
 }
 
 ```
-
 </details>
 
-_____________________________________________________________________________________
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
-**2. Nail Jump Sequence**\
-The game relies on an interaction system to progress with the story. Most of the interactions triggers a cutscene that takes the player from A to B. The "Nail Jump" is one of them; initially I coded this to be an interaction where you press the interact button for each individual nail the player could jump on. It was a lot of tweaking to get the snap points to match with the jumping animation.\
-We finally decided on making the nail jump into a single interaction, and it resulted in a smooth transition between the two levels.
+### 🏃 Nail Jump Sequence
+The game relies on an interaction system to progress with the story.\
+Most of the interactions triggers a cutscene that takes the player from A to B.\
+The "Nail Jump" is one of them.
 
-![](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Nail_Jump_01.gif)
+Initially I coded this to be an interaction where you press the interact button for each individual nail the player could jump on.\
+It was a lot of tweaking to get the snap points to match with the jumping animation.\
+We finally decided on making the nail jump into a single interaction,\
+and the result was a smooth transition between the two levels.
+
+**Contributions:**
+- Level Design : positioning the nails
+- Implementing the snap points for easier tweaking of the jump sequence
+- Implementing the ability to interact with the nail jump using an Interface
+- Implementing a timer for easier tweaking when creating the animation sequence
+
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Nail_Jump_01.gif" width="400"/>
+</p>
 
 *NOTE: The script I created has since been rewritten - as we programmers ended up collaborating in many different aspects of the game.\
 The functionality remains the same, and below are code snippets from the original script written by me.*
@@ -116,8 +150,11 @@ The functionality remains the same, and below are code snippets from the origina
 <details>
 <summary>NailJump.cs</summary>
 <br>
-  
-```ruby
+
+_Called when the player interacts with the nail jump trigger.\
+Checks that the player exists, the object is interactable,\
+and the previous jump is complete before starting the next jump._
+```csharp
  public void Interact()
     {
         if (playerRef == null)
@@ -135,7 +172,10 @@ The functionality remains the same, and below are code snippets from the origina
             }
         }
     }
-
+```
+_Locks the player in place and disables input while waiting between jumps.\
+Once the timer is done, re-enables the jump sequence._
+```csharp
     private IEnumerator TimerBetweenJumps()
     {
         if (isTimerDone == false)
@@ -148,7 +188,10 @@ The functionality remains the same, and below are code snippets from the origina
             isTimerDone = true;
         }
     }
-
+```
+_Animates the player jumping to the target position using DOTween.\
+Re-enables player control once they land on the floor._
+```csharp
     public void DoJump(Vector3 nextJumpPoint)
     {
         if (playerRb == null || playerRef == null)
@@ -168,62 +211,80 @@ The functionality remains the same, and below are code snippets from the origina
 
         hasJumped = true;
     }
-
+```
+_Calculates the exact world position of the next jump point,\
+adjusting for a vertical offset so the player lands at the right height._
+```csharp
     private void CalculateJump(Vector3 jumpTo)
     {
         Vector3 offsetY = new(0, offset, 0);
         Vector3 jumpPoint = nextPoint.transform.position - offsetY;
         nextJumpPoint = new Vector3(jumpPoint.x, jumpPoint.y, jumpPoint.z);
     }
-
 ```
-
 </details>
 
-_____________________________________________________________________________________
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
-**3. Player Moving**\
-A character and story driven game is nothing without smooth navigation. We went back and foth many times to figure out the best type of movement in our game. It started with a blend between a type of locked (rail like) movement and free movement,\
+### 🎮 Player Movement
+A character and story driven game is nothing without smooth navigation. We went back and forth many times to figure out the best type of movement in our game.\
+It started with a blend between a type of locked (rail like) movement and free movement,\
 but we finally decided on using free movement.
 
-**My work with movement included:**
+**Contributions:**
 - Overall coding the movement system with the other programmers in the team
 - Creating and implementing footstep sound - using animation events
 - Implementing and tweaking walk/stop with animations
 - Creating input action maps
 - Collisions
 
-![](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/PlayerWalk_01.gif)
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/PlayerWalk_01.gif" width="400"/>
+</p>
 
-_____________________________________________________________________________________
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+<p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
-**4. Sound Design**
-
+### 🔉 Sound Design
 I chose to take on the sound design. A big task that really gave me more respect for how intricate sound in games are - as well as the importance of it.
 
+</details>
 
-- *Apart from two SFX audio ("Dying Hand" and "Dead Eye Awakens"), all SFX are recorded by me*
-- *All SFX and Ambience are mixed by me*
-- *Tools: Audacity and Adobe Audition*
+<details>
+<summary>Disclaimer</summary>
+<br>
+- Apart from two SFX audio ("Dying Hand" and "Dead Eye Awakens"), all SFX are recorded by me
+- All SFX and Ambience are mixed by me
+- Tools: Audacity and Adobe Audition
+</details>
 
- In addition to dusting off old skills in recording, I worked on:
+**Contributions:**
 - Mixing audio based on game object material, size and surroundings
 - Matching audio with animation using event-based triggers
 - Creating systems to implementing audio in the game
-- Spacial audio based on direction and distance
-_____________________________________________________________________________________
+- Spatial audio based on direction and distance
 
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
 
+<p align="center">_____________________________________________________________________________________</p>
 
+<p align="center"><b><i>Developer</i></b></p>
 
-### *Developed by*
-![](https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Carneval.gif)
-_____________________________________________________________________________________
-### *Made Possible by*
+<p align="center">
+  <img src="https://github.com/ewigur/Portfolio/blob/main/Train%20Tale/GIFs/Carneval.gif" width="300"/>
+</p>
+<p align="center">_____________________________________________________________________________________</p>
+
+<p align="center"><b><i>Made possible by</i></b></p>
+
 ![Image](https://github.com/ewigur/Portfolio/blob/main/ThumbNails/Yrgo.png)
-*Higher Vocational Education - Game Creator Programmer, Göteborg*
-_____________________________________________________________________________________
 
-[RETURN TO TOP](#TOP)
-             <a name="TOP"></a>  
+<p align="center"><i>Higher Vocational Education - Game Creator Programmer, Göteborg</i></p>
+
+<p align="center">_____________________________________________________________________________________</p>
+
+<p align="center"> <a href="#TOP"><strong>↑ Return to Top</strong></a> </p>
+
+🔗 [Back to Overview](https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/README.md)
 
