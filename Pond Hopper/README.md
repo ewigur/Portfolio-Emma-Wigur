@@ -26,34 +26,38 @@
 
 <p align="center">___________________________________________________________________________________________________________________________________</p>
 
-Developed with a focus on core programming patterns — state machine, object pooling, and scriptable objects. It was my first solo-completed game, and it's one I'm genuinely proud of.
+Developed with a focus on core programming patterns - state machine, object pooling, and scriptable objects. It was my first solo-completed game, and it's one I'm genuinely proud of.
 The game features a double jump mechanic for balance, two types of collectible flies (a common fly and a rarer, high-value firefly), and a local leaderboard that saves the top scores on the device.
 
 
 ## Mechanics
 
 ### 🐸 Jumping
-The core mechanic of this game is pretty straight forward - touch, drag and release to make the frog jump and devour the flies.
-The indicator shows direction of the jump, which gives the player control over how far the frog will go.
-The double jump was the best way to balance the mechanic, since this little critter can't swim a miscalculated jump == drowning.
+The core mechanic is simple touch/click, drag, and release to make the frog jump and devour flies. A directional indicator lets you control both the angle and distance of each leap,\
+so every jump is a deliberate choice.
+
+The catch?\
+This little critter can't swim. A miscalculated jump means drowning, which is exactly why the double jump exists — it's your second chance to course-correct before ending up at the bottom of the pond.
 
 <p align="center">________________________________________________________________________________________________________________________________________________________</p>
 
 ### 💎 Pickups
-Each collected fly adds to the score. The base of the fly is built on a scriptable object, which was the best approach for managing the attributes.\
-I decided on having one common fly, and one firefly that would be more rare but with a higher score on collection. I quickly noticed that the firefly
-caught the eye of the people testing the game,and it became more interesting gameplay as the subjects were more likely to chase the shiny fly instead of
-diving into the cloud of common flies that might even give them a higher score.
+Every fly you catch adds to your score - but not all flies are created equal. There's a common fly for steady scoring, and a rarer firefly worth more points on collection.\
+Each type is built on a scriptable object, keeping their attributes clean and easy to tweak.
+
+The firefly turned out to be more than just a scoring variant.\
+During playtesting, it consistently caught people's attention — and they'd chase it even when a cluster of common flies nearby would've scored them more.\
+That instinct to go for the shiny thing made the gameplay feel more dynamic without any extra design work.
 
 <details>
-<summary>PickUpItem.cs - Scriptable Object</summary>
+<summary>Pickup</summary>
 <br>
-  
-```ruby
-/*NOTE: This is the item data container for the pickups (flies).
-In addition to defining what kind of item this is, this is also used
-by the object pool to calculate which of the two pickup items to choose  - based on spawnProbability*/
 
+_This is the data container for collectible flies. Rather than hardcoding fly attributes, each fly type is defined as a ScriptableObject asset-\
+meaning you can create and tweak fly variants (name, animation, value, spawn chance) directly in the Unity editor without touching code.\
+The spawnProbability field is also what the object pool reads to decide which fly to spawn._
+
+```csharp
 [CreateAssetMenu(fileName = "PickUp", menuName = "ScriptableObjects/PickUp Item", order = 1)]
 public class PickUpItem : ScriptableObject
 {
@@ -75,12 +79,12 @@ public class PickUpItem : ScriptableObject
 <details>
 <summary>State Machine</summary>
 <br>
-  
-```ruby
-/*
-  NOTE: This is a snippet of what happens under the hood as the game changes states.
-        I created enums for each state
-*/
+
+_This defines all possible states the game can be in as named constants.\
+Using an enum here keeps state management readable and type-safe - instead of passing magic numbers or strings around.\
+The code always deals in explicit, meaningful names like GameOver or GamePaused._
+
+```csharp
       public enum GameStates
     {
         MainMenu,
@@ -90,13 +94,11 @@ public class PickUpItem : ScriptableObject
         GameRestarted,
         GameOver,
     }
+```
+_The central state dispatcher. When a new state is requested, this switch routes to the right behaviour.\
+The GameOver case shown here disables input, triggers the pause music event, and freezes time (timeScale = 0) - cleanly separating what happens on game over from who decides it's game over._
 
-________________________
-
-*/
-    NOTE: As soon as the game state changes, the corresponding components listens to that.
-          Below is a snippet from under the hood upon player death...
-*/
+```csharp
 
     private void HandleStates(GameStates newState)
     {
@@ -110,15 +112,11 @@ ________________________
                 break;
         }
     }
+```
+_The call site that actually triggers the game over flow. It hands off to the state machine (ChangeState), then handles the UI side - hiding the lives display and pause button, and showing the game over menu.\
+Keeping the UI update here and the game logic in HandleStates is a clean separation of concerns._
 
-________________________
-
-/*
-    NOTE: ...and a bunch of happens in correlation with the state change.
-             (UI managing, this case.)
-*/
-
-(from "InGameStatesHandler")
+```csharp
 
 {
     private void GameOver()
@@ -142,15 +140,15 @@ ________________________
 
 ### ♻️ Object Pooling
 
-Since were already on the topic of the flies - they also have their very own object pool. Since the gameloop goes on and on,\
-it would be irresposible of me not to implement a _circle of life_ kind of functionality. The flies spawn from a pool of preloaded\
+Since we're already on the topic of the flies - they also have their very own object pool. Since the gameloop goes on and on,\
+it would be irresponsible of me not to implement a _circle of life_ kind of functionality. The flies spawn from a pool of preloaded\
 prefabs, and when the player collects them they return to the pool to be released again.
 
 - I used Unity's built in OP, and it takes information from the behavioural script created for the flies,\
 which in turn is based off of the scriptable object that contains all the data.
 
 - The pool takes the "spawnProbability" (from the scriptable object) into account,\
-and releases a set amount of flies based on weight and amount of flies already excisting in the scene.
+and releases a set amount of flies based on weight and amount of flies already existing in the scene.
 
 <details>
 <summary>Object Pooling</summary>
@@ -225,8 +223,174 @@ _Returns a collected pickup to its pool for reuse, and unsubscribes from its ret
 
 ### 🏅 Highscore and Leaderboard
 
-Another system I wanted to implement was a leaderboard. I decided to only make it local, since this game was more about making it for myself and a fun thing to show friends and family (and, of course, you). 
-If the player reaches a score higher than the last 8, they will be prompted to add their name in the textbox upon the frogs final death. The highscore is saved on the local device, and the leaderboard will be updated and available in the main menu of the game.
+The game includes a local leaderboard that tracks the top scores. Keeping it local was a deliberate choice - this was a personal project meant to be shared with friends and family, and an online leaderboard would've been overkill.
+When the frog meets its final fate and the player has earned a spot on the board, they're prompted to enter their name. The leaderboard is saved to the device and accessible from the main menu.
+What I built:
+
+- Local leaderboard storing the top 8 scores
+- End-of-game prompt for name entry, triggered only when the score qualifies
+- Persistent save to device storage
+- Leaderboard display integrated into the main menu
+
+<details>
+<summary>Score Management</summary>
+<br>
+  
+_Score is tracked live and persists across lives.\
+The ScoreManager subscribes to game events on enable and unsubscribes on disable - so it only listens when it's active.\
+Each collected fly adds its value to the score, which is immediately written to PlayerPrefs so it survives scene changes and life losses._
+
+```csharp
+private void OnEnable()
+{
+    PlayerCollision.OnScoreCollected += ScoreCollected;
+    PlayerHasDied += FinalScore;
+    OnLifeLost += SavedScore;
+}
+
+private void ScoreCollected(PickUpItem pickUpItem)
+{
+    score += pickUpItem.value;
+    scoreText.text = "Score: " + score;
+    PlayerPrefs.SetInt("currentScore", score);
+}
+
+private void SavedScore()
+{
+    score = PlayerPrefs.GetInt("currentScore", 0);
+    scoreText.text = "Score: " + score;
+}
+```
+
+_The score is handed off to the leaderboard on death.\
+When the frog dies, FinalScore passes the current score to the HighScoreManager.\
+This is the key connection between the two systems — the score manager doesn't know anything about leaderboards, it just hands the value off._
+
+```csharp
+private void FinalScore()
+{
+    if (HSInstance != null)
+    {
+        HSInstance.AddHighScore(score);
+    }
+}
+```
+
+_Only qualifying scores trigger the name prompt.\
+Before anything leaderboard-related happens, AddHighScore checks whether the score actually earns a spot - either the list isn't full yet, or the new score beats the lowest entry.\
+Only then does it fire the event that prompts the player to enter their name._
+
+```csharp
+public void AddHighScore(int newScore)
+{
+    LoadScore();
+    if (newScore <= 0)
+        return;
+
+    if (highScores.Count < MaxListedScores || newScore > highScores[highScores.Count - 1].Value)
+    {
+        pendingHighScore = newScore;
+        OnNewHighScore?.Invoke(newScore);
+        TriggerHighScoreSound?.Invoke();
+    }
+}
+
+```
+_The name is attached, the list sorted, trimmed and saved.\
+Once the player enters their name, SaveHighScoreToList pairs it with the pending score, sorts the full list in descending order, and trims anything beyond the cap.\
+SaveScores then writes each entry to PlayerPrefs as indexed key-value pairs._
+
+```csharp
+private void SaveHighScoreToList(string playerName)
+{
+    highScores.Add(new KeyValuePair<string, int>(playerName, pendingHighScore));
+    highScores.Sort((a, b) => b.Value.CompareTo(a.Value));
+
+    if (highScores.Count > MaxListedScores)
+    {
+        highScores.RemoveAt(MaxListedScores);
+    }
+
+    SaveScores();
+    pendingHighScore = 0;
+}
+
+private void SaveScores()
+{
+    PlayerPrefs.SetInt("ScoreCount", highScores.Count);
+    for (int i = 0; i < highScores.Count; i++)
+    {
+        PlayerPrefs.SetInt($"HighScore{i}", highScores[i].Value);
+        PlayerPrefs.SetString($"HighScoreName{i}", highScores[i].Key);
+    }
+    PlayerPrefs.Save();
+}
+
+```
+_The leaderboard is reconstructed from storage on startup.\
+LoadScore rebuilds the in-memory list from PlayerPrefs each time it's called — ensuring the leaderboard always reflects what's actually saved, even after the app is closed and reopened._
+
+```csharp
+private void LoadScore()
+{
+    highScores.Clear();
+    int scoreCount = PlayerPrefs.GetInt("ScoreCount", 0);
+    for (int i = 0; i < scoreCount; i++)
+    {
+        int score = PlayerPrefs.GetInt($"HighScore{i}", 0);
+        string playerName = PlayerPrefs.GetString($"HighScoreName{i}");
+
+        if (score > 0)
+            highScores.Add(new KeyValuePair<string, int>(playerName, score));
+    }
+}
+
+```
+_Saved data is turned into ranked UI entries.\
+DisplayLeaderBoard clears any existing entries, fetches the saved scores, and instantiates a UI template for each one - positioning them vertically by index.\
+It also handles the ordinal formatting (1ST, 2ND, 3RD...) with a clean switch expression._
+
+```csharp
+private void DisplayLeaderBoard()
+{
+    foreach (Transform child in entryContainer)
+    {
+        if (child != entryTemplate)
+            Destroy(child.gameObject);
+    }
+
+    List<KeyValuePair<string, int>> highScores = highScoreManager.GetHighScores();
+    entryTemplate.gameObject.SetActive(true);
+
+    for (int i = 0; i < highScores.Count && i < maxEntries; i++)
+    {
+        Transform entryTransform = Instantiate(entryTemplate, entryContainer);
+        RectTransform entryRect = entryTransform.GetComponent<RectTransform>();
+        entryRect.anchoredPosition = new Vector2(0, -tempHeight * i);
+        entryTransform.gameObject.SetActive(true);
+
+        int rank = i + 1;
+        string rankTag = rank switch
+        {
+            1 => "ST",
+            2 => "ND",
+            3 => "RD",
+            _ => "TH"
+        };
+
+        var posCountText = entryTransform.Find("PosCountText")?.GetComponent<TMPro.TextMeshProUGUI>();
+        var scoreCountText = entryTransform.Find("ScoreCountText")?.GetComponent<TMPro.TextMeshProUGUI>();
+        var playerName = entryTransform.Find("PlayerNameText")?.GetComponent<TMPro.TextMeshProUGUI>();
+
+        if (posCountText != null) posCountText.text = rank + rankTag;
+        if (scoreCountText != null) scoreCountText.text = highScores[i].Value.ToString();
+        if (playerName != null) playerName.text = highScores[i].Key;
+    }
+}
+
+```
+
+</details>
 
 <p align="center">
   <img src="https://github.com/ewigur/Portfolio/blob/main/Pond%20Hopper/GIFs/PH_HS.gif" width="600"/>
