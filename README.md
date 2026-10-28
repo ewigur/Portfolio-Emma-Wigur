@@ -36,6 +36,7 @@ ________________________________________________________________________________
 </details>
 
 <img src="https://github.com/ewigur/Portfolio-Emma-Wigur/blob/main/ThumbNails/w500.jpg" width="315"/>
+
 _______________________________________________
 
 ## 🧩 Student Projects
@@ -67,6 +68,7 @@ Genre: Walking Simulator, Story, Suspense
 </details>
 
 <img width="315" height="250" alt="image" src="https://github.com/user-attachments/assets/6da9ffc9-b982-4ffa-be03-1cc46e4982a5" />
+
 _______________________________________________
 
 ### 🔗 [***Pogo Pirates***](https://github.com/ewigur/Portfolio/blob/main/Pogo%20Pirates/README.md)
@@ -87,6 +89,7 @@ Genre: Platformer, Action, Local Co-op
 </details>
 
 <img width="315" height="250" alt="image" src="https://github.com/user-attachments/assets/57fd2998-7ce7-4496-b774-4940a2e5e7a1" />
+
 _______________________________________________
 
 ## 👾 Solo Projects
